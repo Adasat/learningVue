@@ -1,10 +1,20 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
-import { onMounted, ref } from 'vue';
+
+import { computed, onMounted, ref } from 'vue';
+import HeartIcon from './components/HeartIcon.vue';
+import BaseCard from './components/BaseCard.vue';
 
 
-const memes = ref([]) // Constante reactiva --> Es un objeto que su value es reactivo.
+const memes = ref([]) // Constante reactiva --> Es un objeto que su value es reactivo.ç
+const favMemes = ref([])
+let allMemes = []
+
+const updatedMemes = computed(() => {
+  return allMemes.map(meme => ({
+    ...meme,
+    isFav: favMemes.value.includes(meme.id)
+  }));
+});
 
 const getAllMemes = async () => {
   const response = await fetch('https://api.imgflip.com/get_memes')
@@ -12,73 +22,88 @@ const getAllMemes = async () => {
 
   console.log(data)
   memes.value = data.memes
+  allMemes = data.memes
 }
+
+const searchMeme = (event) => {
+  const value = event.target.value
+  memes.value = allMemes.filter(meme => meme.name.toLowerCase().includes(value.toLowerCase()))
+}
+
+const toggleFav = (memeId) => {
+  const index = favMemes.value.indexOf(memeId);
+  if (index >= 0) {
+    // Si el meme ya está en la lista, quítalo
+    favMemes.value.splice(index, 1);
+  } else {
+    // Si el meme no está en la lista, añádelo
+    favMemes.value.push(memeId);
+  }
+
+  console.log(favMemes.value)
+};
+
+
 getAllMemes()
+
+const checkIsFav = (memeId) => {
+  console.log(favMemes.value.includes(memeId))
+  return favMemes.value.includes(memeId);
+};
 
 onMounted(() => { //Esto es un ciclo de vida
   console.log('componente montado')
 })
 </script>
 
-<!-- <script>
-export default {
-  setup() {
-    import HelloWorld from './components/HelloWorld.vue'
-    import TheWelcome from './components/TheWelcome.vue'
-  }
-}
-</script> -->
 
 <template>
-  <header>
+  <div class="flex flex-col items-center">
+    <input type="text" placeholder="Search meme..." class="input input-bordered w-full max-w-xs mb-4" v-on:input="searchMeme" />
+    <section class="container mt-2 ">
+      <BaseCard v-for="meme in updatedMemes" :key="meme.id" :meme="meme" :fav="toggleFav" :isFav="checkIsFav(meme.id)"/>
+     
+    </section> 
 
-    <div class="wrapper">
-      <div v-for="meme in memes" :key="meme.id" class="card">
-        <img :src="meme.url" />
-        <h1>{{meme.name}}</h1>
-    
-      </div>
-    </div>
-  </header>
 
-  <main>
-  </main>
+  </div>
+
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
+<style scoped> /* Scope es estilo propio del componente */
+
+
+.base-input {
+  padding: 5px 8px;
+  margin-bottom: 10px;
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
+.icon {
+  width: 20px;
+  height: 30px;
+}
+
+.icon.selected {
+  color: red;
 }
 
 .card {
-  background-color: white;
   display: flex;
   flex-direction: column;
-
-  width: 40px;
-  height: 60px;
+  width: 20%;
+  gap: 10px;
+  justify-content: space-between;
+  text-align: center;
+  color: black;
+  padding: 10px;
+  border-radius: 10px;
 }
-
-@media (min-width: 1024px) {
-  header {
+.container {
     display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
     flex-wrap: wrap;
+    max-width: 100vw;
+    gap: 40px
   }
-}
+
+
 </style>
