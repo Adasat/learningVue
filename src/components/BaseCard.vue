@@ -1,5 +1,4 @@
 <script setup>
-import { watch, watchEffect } from 'vue';
 import HeartIcon from './HeartIcon.vue';
 
     const props = defineProps({
@@ -15,13 +14,18 @@ import HeartIcon from './HeartIcon.vue';
 </script>
 
 <template>
-    <div class="card w-96 bg-green-200   shadow-xl">
-        <HeartIcon :class="props.isFav && 'text-red-500'" class="w-24 text-black"  @click="fav(meme.id)"/>
-        {{ isFav }}
-        <figure class="px-10 pt-10">
-            <img :src="meme.url"  class="rounded-xl" />
-        </figure>
-        <div class="card-body items-center text-center">
+    <div class="card w-72 bg-green-50 shadow-xl text-black justify-between pt-4" >
+        <div class="h-[90%]">
+            
+            <HeartIcon v-if="props.isFav" :class="props.isFav && 'text-red-500  w-full'"   @click="fav(meme)"/>
+            <HeartIcon v-else="props.isFav" :class="!props.isFav && 'text-black  w-full'"   @click="fav(meme)"/>
+            {{ meme.name }}
+            <figure class="px-10 py-5">
+                <img :src="meme.url"  class="rounded-xl" />
+            </figure>
+
+        </div>
+        <div class="card-body items-center text-center bg-gray-200 rounded-b-xl">
             <h2 class="card-title">{{meme.name}}</h2>
            
         </div>
