@@ -25,7 +25,7 @@ const searchMeme = (event) => {
   memes.value = allMemes.filter(meme => meme.name.toLowerCase().includes(value.toLowerCase()))
 }
 
-const toggleFav = (memeId) => {
+/* const toggleFav = (memeId) => {
     console.log(memeId)
   const index = favMemes.value.indexOf(memeId.id);
   if (index >= 0) {
@@ -38,14 +38,11 @@ const toggleFav = (memeId) => {
 
   console.log(favMemes.value)
 };
-
+ */
 
 getAllMemes()
 
-const checkIsFav = (memeId) => {
-  console.log(favMemes.value.includes(memeId))
-  return favMemes.value.includes(memeId);
-};
+
 
 
 
@@ -56,11 +53,11 @@ const checkIsFav = (memeId) => {
   <div class="flex flex-col items-center">
     <div class="flex flex-row justify-between w-full">
       <input type="text" placeholder="Search meme..." class="input input-bordered w-full max-w-xs mb-4" v-on:input="searchMeme" />
-      <button class="btn glass bg-red-500 text-black hover:text-white" @click="router.push({path: '/favorites', query: {items: JSON.stringify(favMemes.value)} })">Favorites</button>
+      <button class="btn glass bg-red-500 text-black hover:text-white" @click="router.push({path: '/favorites' })">Favorites</button>
 
     </div>
     <section class="flex flex-wrap gap-4 mt-2 ">
-      <BaseCard v-for="meme in memes" :key="meme.id" :meme="meme" :fav="toggleFav" :isFav="checkIsFav(meme)"/>
+      <BaseCard v-for="meme in memes" :key="meme.id" :meme="meme" />
      
     </section> 
 

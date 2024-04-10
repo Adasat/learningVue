@@ -3,15 +3,21 @@ import {createRouter, createWebHashHistory} from "vue-router";
 
 import Favorites from "../pages/Favorites.vue";
 import Home from '../pages/Home.vue'
+import BaseLayout from '../layouts/BaseLayout.vue'
 
 const routes = [
+  {
+    path: '/',
+    component: BaseLayout,
+    children: [
   {path: '/', component: Home},
   {path: '/favorites', component: Favorites}
+]}
 ];
 
 const router = createRouter({
   history: createWebHashHistory(),
   routes,
-});
+})
 
 export default router

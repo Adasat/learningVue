@@ -1,13 +1,17 @@
 <script setup>
 import HeartIcon from './HeartIcon.vue';
+import { useFavorites } from '@/stores/FavStore';
+
+const { favorites, controlFavorites } = useFavorites()
 
     const props = defineProps({
         meme: Object,
-        fav: Function,
-        isFav: Boolean
+
     })
 
-    
+const checkIsFav = (memeId) => {
+    return favorites.some(favorite => favorite.id === memeId);
+};
 
     
 
@@ -17,9 +21,8 @@ import HeartIcon from './HeartIcon.vue';
     <div class="card w-72 bg-green-50 shadow-xl text-black justify-between pt-4" >
         <div class="h-[90%]">
             
-            <HeartIcon v-if="props.isFav" :class="props.isFav && 'text-red-500  w-full'"   @click="fav(meme)"/>
-            <HeartIcon v-else="props.isFav" :class="!props.isFav && 'text-black  w-full'"   @click="fav(meme)"/>
-            {{ meme.name }}
+            <HeartIcon v-if="checkIsFav(meme.id)" :class="'text-red-500  w-full'"   @click="controlFavorites(meme)"/>
+            <HeartIcon v-else="checkIsFav(meme.id)" :class="'text-black  w-full'"   @click="controlFavorites(meme)"/>
             <figure class="px-10 py-5">
                 <img :src="meme.url"  class="rounded-xl" />
             </figure>
