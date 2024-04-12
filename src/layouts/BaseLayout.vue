@@ -17,6 +17,7 @@ import { useRouter } from 'vue-router';
                 <a :class="{ ' link link-accent': currentPath.value !== '/', 'link link-warning': currentPath.value === '/'}" @click="router.push({path: '/'})">Home</a>
                 <a :class="{ 'link link-accent': currentPath.value !== '/favorites', 'link link-warning': currentPath.value === '/favorites'}" @click="router.push({path: '/favorites'})">Favorites</a>
                 <a :class="{ 'link link-accent': currentPath.value !== '/mount', 'link link-warning': currentPath.value === '/mount'}" @click="router.push({path: '/mount'})">MOUNTy Pitón</a>
+                <a :class="{ 'link link-accent': currentPath.value !== '/alive', 'link link-warning': currentPath.value === '/alive'}" @click="router.push({path: '/alive'})">Keep Alive</a>
 
             </div>
         </header>
@@ -24,8 +25,8 @@ import { useRouter } from 'vue-router';
           <!-- Aquí irá el contenido de la página -->
           <router-view></router-view>
         </main>
-        <footer class="fixed h-10 w-full bg-slate-500 bottom-0">
+        <!-- <footer class="fixed h-10 w-full bg-slate-500 bottom-0">
             <p>Footer to guapo</p>
-        </footer>
+        </footer> -->
     </div>
 </template>

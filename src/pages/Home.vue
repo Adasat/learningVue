@@ -38,7 +38,7 @@ const searchMeme = (event) => {
 
   console.log(favMemes.value)
 };
- */
+*/
 
 getAllMemes()
 
@@ -62,7 +62,7 @@ getAllMemes()
      
     </section> 
 
-
+    
   </div>
 
 </template>
