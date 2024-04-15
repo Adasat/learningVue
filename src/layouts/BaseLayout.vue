@@ -18,6 +18,7 @@ import { useRouter } from 'vue-router';
                 <a :class="{ 'link link-accent': currentPath.value !== '/favorites', 'link link-warning': currentPath.value === '/favorites'}" @click="router.push({path: '/favorites'})">Favorites</a>
                 <a :class="{ 'link link-accent': currentPath.value !== '/mount', 'link link-warning': currentPath.value === '/mount'}" @click="router.push({path: '/mount'})">MOUNTy Pitón</a>
                 <a :class="{ 'link link-accent': currentPath.value !== '/alive', 'link link-warning': currentPath.value === '/alive'}" @click="router.push({path: '/alive'})">Keep Alive</a>
+                <a :class="{ 'link link-accent': currentPath.value !== '/draggable', 'link link-warning': currentPath.value === '/draggable'}" @click="router.push({path: '/draggable'})">Drop and Drag</a>
 
             </div>
         </header>
