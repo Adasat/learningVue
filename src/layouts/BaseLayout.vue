@@ -26,8 +26,8 @@ import { useRouter } from 'vue-router';
           <!-- Aquí irá el contenido de la página -->
           <router-view></router-view>
         </main>
-        <!-- <footer class="fixed h-10 w-full bg-slate-500 bottom-0">
+        <footer class="fixed h-10 w-full bg-slate-500 bottom-0">
             <p>Footer to guapo</p>
-        </footer> -->
+        </footer>
     </div>
 </template>

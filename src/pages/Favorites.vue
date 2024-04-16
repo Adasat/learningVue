@@ -5,6 +5,7 @@ import { useRouter, useRoute } from 'vue-router'
 import { useFavorites } from '@/stores/FavStore';
 import BaseButton from '@/components/BaseButton.vue';
 import BaseInput from '@/components/BaseInput.vue';
+import ShowAttributes from '@/components/ShowAttributes.vue'
 
 const items = ref([])
 const inputValue = ref('');
@@ -30,5 +31,6 @@ const router = useRouter()
           <BaseCard v-for="meme in favorites" :key="meme.id" :meme="meme" />
 
         </section>
-    </div>
+
+        <ShowAttributes :array-prop="[1, 2, 3]" non-prop-string="Hello" :non-prop-number="123" />    </div>
 </template>

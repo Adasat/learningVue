@@ -2,6 +2,7 @@
 import { ref, watch } from 'vue';
 import draggable from 'vuedraggable';
 import Modal from '../components/Modal.vue'
+import DraggableCard from '../components/DraggableCard.vue'
 
 const meals = ref([
   'Hamburger',
@@ -33,16 +34,40 @@ const addMeal = (meal, arr) => {
 }
 
 
-watch(niFuniFaMeals, (newValue, oldValue) => { console.log('Nuevo valor:', newValue); console.log('Valor anterior:', oldValue); })
 
 const showModal = (arr) => {
-    arrayRef.value = arr
+    arrayRef.value = arr;
     openModal.value = true
+    console.log(arrayRef)
+    
+
 }
 
 const closeModal = () => {
-    showModal.value = false;
+    openModal.value = false;
+    console.log(openModal)
 };
+
+const updateArray = (newMeal) => {
+    arrayRef.value.push(newMeal)
+    openModal.value = false;
+}
+
+const removeElement = (meal) => {
+    // Buscar y eliminar en meals
+    if (meals.value.includes(meal)) {
+        meals.value = meals.value.filter(m => m !== meal)
+    }
+    // Buscar y eliminar en yuckyMeals
+    else if (yuckyMeals.value.includes(meal)) {
+        yuckyMeals.value = yuckyMeals.value.filter(m => m !== meal)
+    }
+    // Buscar y eliminar en niFuniFaMeals
+    else if (niFuniFaMeals.value.includes(meal)) {
+        niFuniFaMeals.value = niFuniFaMeals.value.filter(m => m !== meal)
+    }
+};
+
 
 </script>
 
@@ -52,15 +77,10 @@ const closeModal = () => {
             <h1>Favorite Foods</h1>
             <draggable v-model="meals" tag="ul" itemKey="fav" group="meals" :animation="300" class="flex flex-col gap-2 min-h-72 p-2 bg-gray-600 rounded-t-lg">    
                 <template #item="{ element: meal }" class="cursor-pointer">
-                <div class="bg-white p-2 mb-4 cursor-pointer  rounded-md text-black">
-                    <p>
-        
-                        {{ meal }}
-                    </p>
-                </div>
+                    <DraggableCard :meal="meal"  @removeElement="removeElement"/>
                 </template>
             </draggable>
-        <div v-if="meals.length < 5" class="bg-gray-500 p-2 rounded-b-lg cursor-pointer" @click="showModal(niFuniFaMeals)">
+        <div v-if="meals.length < 5" class="bg-gray-500 p-2 rounded-b-lg cursor-pointer" @click="showModal(meals)">
                    <p class="ml-4 italic text-white">
                     + Add new Meal
                    </p>
@@ -73,14 +93,7 @@ const closeModal = () => {
 
             <draggable v-model="niFuniFaMeals" tag="ul" group="meals" itemKey="nn" :animation="300" class="flex flex-col gap-2 min-h-72 p-2 bg-gray-600 rounded-t-lg">
                 <template #item="{element: meal}" class="cursor-pointer">
-                    <div class="bg-white p-2 mb-4 cursor-pointer  rounded-md text-black">
-                        <p>
-            
-                            {{ meal }}
-                        </p>
-                    </div>
-                    
-
+                    <DraggableCard :meal="meal" @removeElement="removeElement"/>
                 </template>
                 
             </draggable>
@@ -95,15 +108,10 @@ const closeModal = () => {
             <h1>Terrible Foods</h1>
             <draggable v-model="yuckyMeals" tag="ul" group="meals" itemKey="awful" :animation="300" class="flex flex-col gap-2  min-h-72 p-2 bg-gray-600 rounded-t-lg">
               <template #item="{ element: meal }" class="cursor-pointer">
-                <div class="bg-white p-2 mb-4 cursor-pointer w-full rounded-md text-black">
-                  <p>
-          
-                      {{ meal }}
-                  </p>
-              </div>
+                <DraggableCard :meal="meal"  @removeElement="removeElement"/>
               </template>
             </draggable>
-             <div v-if="yuckyMeals.length < 5" class="bg-gray-500 p-2 rounded-b-lg cursor-pointer" @click="()=>document.getElementById('my_modal_1').showModal()">
+             <div v-if="yuckyMeals.length < 5" class="bg-gray-500 p-2 rounded-b-lg cursor-pointer" @click="showModal(yuckyMeals)">
              <p class="ml-4 italic text-white">
                 + Add new Meal
             </p>
@@ -113,6 +121,6 @@ const closeModal = () => {
     </div>
 
     <div v-if="openModal">
-        <Modal :is-open="showModal" @close="closeModal"/>
+        <Modal isOpen="openModal" :arr="arrayRef" @updateArray="updateArray" :is-open="showModal" @close="closeModal"/>
     </div>
 </template>

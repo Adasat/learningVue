@@ -26,4 +26,10 @@ const router = createRouter({
   routes,
 });
 
+/* router.beforeEach( to => {
+  if(! Authenticated ){
+    router.push('/fuera')
+  }
+})
+ */
 export default router
