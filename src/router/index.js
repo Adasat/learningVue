@@ -7,6 +7,7 @@ import BaseLayout from '../layouts/BaseLayout.vue'
 import LifeCycle from "@/pages/LifeCycle.vue";
 import AliveComponent from "../pages/AliveComponent.vue"
 import DragNDrop from "@/pages/DragNDrop.vue";
+import VuePrime from "@/pages/VuePrime.vue"
 
 const routes = [
   {
@@ -17,7 +18,8 @@ const routes = [
   {path: '/favorites', component: Favorites},
   {path: '/mount', component: LifeCycle},
   {path: '/alive', component: AliveComponent },
-  {path: '/draggable', component: DragNDrop}
+  {path: '/draggable', component: DragNDrop},
+  {path: '/vuePrime', component: VuePrime}
 ]}
 ];
 

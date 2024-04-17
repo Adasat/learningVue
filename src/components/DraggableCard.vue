@@ -20,7 +20,7 @@ const removeMeal = () => {
             trigger="hover"
             stroke="light"
             state="hover-enlarge"
-            colors="primary:#121331,secondary:#ffffff,tertiary:#de8580"
+            colors="primary:#121331,secondary:#ffffff,tertiary:#A1F1F0"
             style="width:40px;height:40px"
             @click="removeMeal"
         >

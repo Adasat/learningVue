@@ -14,11 +14,13 @@ import { useRouter } from 'vue-router';
         <header class="absolute top-0 left-0 flex items-center justify-between bg-gray-200 border-b-4 border-dotted border-b-black h-20 w-full mb-10 text-black">
             <p class="ml-4 text-xl ">Memelogín</p>
             <div class="flex gap-4 mr-4">
-                <a :class="{ ' link link-accent': currentPath.value !== '/', 'link link-warning': currentPath.value === '/'}" @click="router.push({path: '/'})">Home</a>
-                <a :class="{ 'link link-accent': currentPath.value !== '/favorites', 'link link-warning': currentPath.value === '/favorites'}" @click="router.push({path: '/favorites'})">Favorites</a>
+                <a :class="[ 'link', (currentPath.value === '/' ? 'link-warning' : 'link-accent')]" @click="router.push({path: '/'})">Home</a>
+                <a :class="[ 'link', (currentPath.value === '/favvortres' ? 'link-warning' : 'link-accent')]" @click="router.push({path: '/favorites'})">Favorites</a>
                 <a :class="{ 'link link-accent': currentPath.value !== '/mount', 'link link-warning': currentPath.value === '/mount'}" @click="router.push({path: '/mount'})">MOUNTy Pitón</a>
                 <a :class="{ 'link link-accent': currentPath.value !== '/alive', 'link link-warning': currentPath.value === '/alive'}" @click="router.push({path: '/alive'})">Keep Alive</a>
                 <a :class="{ 'link link-accent': currentPath.value !== '/draggable', 'link link-warning': currentPath.value === '/draggable'}" @click="router.push({path: '/draggable'})">Drop and Drag</a>
+                <a :class="{ 'link link-accent': currentPath.value !== '/vuePrime', 'link link-warning': currentPath.value === '/vuePrime'}" @click="router.push({path: '/vuePrime'})">VuePrime</a>
+
 
             </div>
         </header>
